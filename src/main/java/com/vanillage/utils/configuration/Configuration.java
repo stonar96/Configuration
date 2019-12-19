@@ -284,15 +284,41 @@ public final class Configuration {
         }
     }
 
+    public Object clear(Object... path) { // delete, remove, reset, clear, erase
+        if (path == null) {
+            throw new IllegalArgumentException("path cannot be null");
+        }
+
+        Map<?, ?> previous = null;
+        Object object = content;
+
+        for (int i = 0; i < path.length; i++) {
+            if (object instanceof Map) {
+                previous = (Map<?, ?>) object;
+                object = previous.get(path[i]);
+            } else {
+                return NoValue.INSTANCE;
+            }
+        }
+
+        if (object == null && (!configurationOptions.isNullTreatedAsValue() || previous != null && !previous.containsKey(path[path.length - 1]))) {
+            object = NoValue.INSTANCE;
+        }
+
+        if (previous == null) { // can be merged with the if statement above
+            content = new LinkedHashMap<>();
+        } else {
+            previous.remove(path[path.length - 1]); // not necessary if previous doesn't contain the path
+        }
+
+        return object;
+    }
+
     /*public boolean exists(Object... path) { // exists, contains, isSet
         return false;
     }
 
     public Object insertIfAbsent(Object value, Object... path) { // insert, set, create, construct, add, put
-        return null;
-    }
-
-    public Object delete(Object... path) { // delete, remove, reset, clear, erase
         return null;
     }*/
 
