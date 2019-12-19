@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.vanillage.utils.configuration</groupId>
   <artifactId>configuration</artifactId>
-  <version>1.0</version>
+  <version>1.1</version>
   <name>Configuration</name>
   <description>A Java configuration API with an implementation for parsing data from XML-based configuration files to a (Map) memory structure.</description>
   <build>

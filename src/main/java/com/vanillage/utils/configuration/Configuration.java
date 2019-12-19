@@ -223,11 +223,11 @@ public final class Configuration {
             }
         }
 
-        if (object == null && (!configurationOptions.isNullTreatedAsValue() || previous != null && /*if (defaultConfiguration != null && predicate != null && !predicate.test(null) && !predicate.test(NoValue.INSTANCE)) {return defaultConfiguration.get(predicate, path);} else if (defaultConfiguration == null || predicate == null || predicate.test(null) && predicate.test(NoValue.INSTANCE)) {return previous.containsKey(path[path.length - 1]) ? null : NoValue.INSTANCE;}*/!previous.containsKey(path[path.length - 1]))) {
+        if (object == null && (!configurationOptions.isNullTreatedAsValue() || previous != null && /*if (predicate != null && !predicate.test(null) && !predicate.test(NoValue.INSTANCE)) {return defaultConfiguration == null ? NoValue.INSTANCE : defaultConfiguration.get(predicate, path);}*/!previous.containsKey(path[path.length - 1]))) {
             object = NoValue.INSTANCE;
         }
 
-        return defaultConfiguration == null || predicate == null || predicate.test(object) ? object : defaultConfiguration.get(predicate, path);
+        return predicate == null || predicate.test(object) ? object : defaultConfiguration == null ? NoValue.INSTANCE : defaultConfiguration.get(predicate, path);
     }
 
     @SuppressWarnings("unchecked")
