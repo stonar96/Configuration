@@ -6,7 +6,7 @@ This configuration API does not use or require any 3rd party libraries. Currentl
 
 # Getting started
 At first one has to create the [```Configuration```](src/main/java/com/vanillage/utils/configuration/Configuration.java) object. This can be done by either using a constructor or using the [```XmlConfigurationFactory```](src/main/java/com/vanillage/utils/configuration/xml/XmlConfigurationFactory.java). By default, this will create [```Configuration```](src/main/java/com/vanillage/utils/configuration/Configuration.java) object for XML files. Then one can directly set some values and save the configuration to a file.
-```
+```java
 Configuration configuration = XmlConfigurationFactory.newConfiguration();
 configuration.set(3, "this", "is", "a", "path");
 configuration.set("text", "this", "is", "another", "path");
@@ -16,7 +16,7 @@ configuration.set(3.0f, "path", "to", "a", "float");
 configuration.saveSilent(new File("configuration.xml"));
 ```
 Below is the resulting configuration.xml file. Some entries have a ```type``` attribute. These are defined by the [```ConfigurationSerializer```s](src/main/java/com/vanillage/utils/configuration/serializers/) and are necessary in some cases to identify the type correctly when the configuration is loaded again.
-```
+```xml
 <configuration>
   <this>
     <is>
@@ -40,7 +40,7 @@ Below is the resulting configuration.xml file. Some entries have a ```type``` at
 </configuration>
 ```
 As already mentioned one can also get the ```content``` or some values from the Map structure. The above created configuration.xml file is loaded for this example. A query can be specified by a lambda expression for a ```Predicate```.
-```
+```java
 Configuration configuration = XmlConfigurationFactory.newConfiguration();
 configuration.loadSilent(new File("configuration.xml"));
 System.out.println(configuration.getContent());
